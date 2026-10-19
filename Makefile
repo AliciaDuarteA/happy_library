@@ -1,7 +1,7 @@
 CXX = g++
 CC = gcc
 
-CXXFLAGS = -Iinclude -I/opt/homebrew/include
+CXXFLAGS = -std=c++17 -Iinclude -I/opt/homebrew/include
 CFLAGS = -Iinclude
 LDFLAGS = -L/opt/homebrew/lib -lglfw -framework OpenGL
 
@@ -12,7 +12,7 @@ all: $(TARGET)
 $(TARGET): main.o glad.o
 	$(CXX) main.o glad.o -o $(TARGET) $(LDFLAGS)
 
-main.o: main.cpp
+main.o: main.cpp include/stb_image.h
 	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
 
 glad.o: src/glad.c
@@ -20,3 +20,5 @@ glad.o: src/glad.c
 
 clean:
 	rm -f main.o glad.o $(TARGET)
+
+.PHONY: all clean
